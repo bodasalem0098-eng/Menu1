@@ -1,0 +1,549 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسماك أبو حمزة | طعم البحر الأصلي</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        seaBlue: '#005f73', 
+                        oceanDark: '#001219',
+                        coralAccent: '#94d2bd',
+                        deepBlue: '#002855',
+                    },
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+   <style>
+    body { font-family: 'Cairo', sans-serif; background-color: #001219; color: white; scroll-behavior: smooth; overflow-x: hidden; }
+    
+    /* منع التمرير والصفحة الافتتاحية موجودة */
+    body:has(#landing-page:not(.landing-hidden)) { overflow: hidden; }
+
+    /* تحسين صفحة الهبوط */
+    #landing-page {
+    position: fixed; 
+    inset: 0; 
+    /* الحل الأول: إضافة background-attachment: fixed ومنع التكرار */
+    background: linear-gradient(rgba(0,18,25,0.6), rgba(0,18,25,0.8)), 
+    url('https://res.cloudinary.com/do0u3he16/image/upload/v1777516309/c55008754b64ab73f6d75bb673d9df35_gdlfgo.jpg');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* هذا يمنع الصورة من التحرك مع السكرول */
+    
+    z-index: 9999; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: flex-start; 
+    overflow-y: auto;
+    padding: 3rem 1.5rem; 
+    
+    /* لضمان ثبات الأبعاد عند ظهور الكيبورد أو تغير حجم المتصفح */
+    height: 100%;
+    width: 100%;
+
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: saturate(1.4) contrast(1.1) blur(6px); 
+    -webkit-backdrop-filter: saturate(1.4) contrast(1.1) blur(6px);
+}
+
+
+
+    /* الكلاس المسؤول عن إخفاء الصفحة الافتتاحية */
+    .landing-hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.1); }
+
+    .fish-container {
+        background: rgba(148, 210, 189, 0.05);
+        border: 3px solid rgba(148, 210, 189, 0.9);
+        box-shadow: 0 0 20px rgba(148, 210, 189, 0.6), inset 0 0 15px rgba(148, 210, 189, 0.4);
+        transition: all 0.5s ease;
+    }
+
+    .neon-fish {
+        color: #94d2bd;
+        filter: drop-shadow(0 0 8px #94d2bd) drop-shadow(0 0 20px #94d2bd);
+        animation: neon-glow 1.5s infinite alternate;
+    }
+
+    @keyframes neon-glow {
+        from { filter: drop-shadow(0 0 5px #94d2bd); transform: scale(1); }
+        to { filter: drop-shadow(0 0 20px #94d2bd) drop-shadow(0 0 40px #005f73); transform: scale(1.05); }
+    }
+
+    .landing-btn {
+        width: 100%; padding: 1rem; border-radius: 1rem; font-weight: 800;
+        display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+        transition: all 0.3s; backdrop-blur: 5px;
+    }
+
+    .item-card { background: #002855; border: 1px solid rgba(148, 210, 189, 0.1); border-radius: 24px; overflow: hidden; transition: 0.3s; }
+    .item-card:hover { border-color: #94d2bd; transform: translateY(-5px); }
+    
+    .category-pill {
+        background: #002855; border: 1px solid rgba(148, 210, 189, 0.2); color: #94d2bd;
+        padding: 8px 20px; border-radius: 99px; white-space: nowrap; font-weight: 700;
+    }
+    
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+</style>
+
+
+</head>
+<body class="antialiased">
+
+    <!-- Landing Screen -->
+<div id="landing-page">
+    <div class="landing-content text-center animate-fade-in relative z-20">
+        
+        <div class="mb-8 inline-block p-10 rounded-full fish-container">
+            <i class="fa-solid fa-fish text-8xl neon-fish"></i>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-3 tracking-tight neon-text">أسماك أبو حمزة</h1>
+        <p class="text-xl text-coralAccent/90 mb-12 font-bold italic text-center">أجود أنواع الأسماك.. في قلب حي الحرزات</p>
+        
+        <div class="flex flex-col gap-5 w-full pb-10"> <button onclick="enterApp('delivery')" class="landing-btn bg-coralAccent text-oceanDark shadow-[0_0_30px_rgba(148,210,189,0.5)]">
+                <i class="fa-solid fa-anchor"></i> اطلب الآن
+            </button>
+
+            <a href="Https://vm.tiktok.com/ZS9NbBqPbdRFP-su7at/" target="_blank" class="landing-btn bg-white/5 border border-white/20 text-white">
+                <i class="fa-brands fa-tiktok"></i> تابعنا على المنصات
+            </a>
+
+            <button onclick="showHours()" class="landing-btn bg-white/5 border border-white/20 text-white hover:bg-coralAccent/20">
+                <i class="fa-solid fa-clock text-coralAccent"></i> 
+                <span>مواعيد العمل: <span class="text-xs font-light opacity-70">1م - 12ص</span></span>
+            </button>
+
+            <a href="http://googleusercontent.com/maps.google.com/6" target="_blank" class="landing-btn bg-white/5 border border-white/20 text-white mb-10">
+                <i class="fa-solid fa-location-dot text-red-500"></i> موقعنا على الخريطة
+            </a>
+        </div>
+    </div>
+</div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-oceanDark/95 backdrop-blur-md border-b border-coralAccent/10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="location.reload()" class="flex items-center gap-2">
+                <div class="bg-coralAccent text-oceanDark px-4 py-1.5 rounded-lg font-black text-lg shadow-lg">أبو حمزة</div>
+            </button>
+            
+            <button id="nav-cart-btn" onclick="toggleCart()" class="relative bg-coralAccent/10 text-coralAccent px-6 py-2 rounded-full font-black border border-coralAccent/20 flex items-center gap-2 transition-all active:scale-95">
+                <i class="fa-solid fa-shrimp"></i>
+                <span id="cart-count" class="bg-red-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full absolute -top-1 -right-1 hidden font-bold">0</span>
+                <span>سلة الطلب</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-28 pb-20">
+        
+        <!-- Category Slider -->
+        <div class="flex gap-2 overflow-x-auto no-scrollbar mb-10 pb-2 sticky top-20 z-40 bg-oceanDark/95 py-3">
+            <a href="#sec-balti" class="category-pill">البلطي</a>
+            <a href="#sec-bouri" class="category-pill">البوري</a>
+            <a href="#sec-mak" class="category-pill">الماكريل</a>
+            <a href="#sec-denis" class="category-pill">الدنيس</a>
+            <a href="#sec-qarous" class="category-pill">القاروص</a>
+            <a href="#sec-hareed" class="category-pill">الحريد/الشعور</a>
+            <a href="#sec-shrimp" class="category-pill">الجمبري</a>
+            <a href="#sec-offers" class="category-pill">العروض</a>
+        </div>
+
+        <div id="menu-sections" class="space-y-16">
+            <!-- سيتم إنشاؤه عبر JS -->
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+        <div id="cart-modal" class="fixed inset-0 bg-oceanDark/95 z-[100] hidden backdrop-blur-md flex justify-end">
+        <div class="bg-oceanDark w-full md:w-[450px] h-full flex flex-col shadow-2xl border-l border-coralAccent/20">
+            
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-deepBlue">
+                <h3 class="text-2xl font-black text-coralAccent">سلة الطلبات</h3>
+                <button onclick="toggleCart()" class="text-white/50 hover:text-white">
+                    <i class="fa-solid fa-xmark text-3xl"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar">
+                <div class="text-center py-20 text-gray-600 font-bold">السلة فارغة</div>
+            </div>
+
+            <div id="customer-info-section" class="p-6 border-t border-white/5 bg-deepBlue/30 space-y-4">
+                <label class="block text-xs font-black text-coralAccent uppercase tracking-widest">تفاصيل الاستلام</label>
+                
+                <div class="flex gap-2">
+                    <button onclick="setOrderType('pickup')" id="type-pickup" class="flex-1 py-3 rounded-xl text-xs font-black border-2 transition-all border-coralAccent bg-coralAccent text-oceanDark">استلام من الفرع 🥡</button>
+                    <button onclick="setOrderType('delivery')" id="type-delivery" class="flex-1 py-3 rounded-xl text-xs font-black border-2 transition-all border-white/10 text-white/50">توصيل للمنزل 🚗</button>
+                </div>
+
+                <input type="text" id="customer-name" placeholder="اسم العميل" class="w-full bg-oceanDark border border-white/10 rounded-xl p-4 text-sm font-bold text-white focus:border-coralAccent outline-none transition-all">
+
+                <textarea id="order-notes" placeholder="ملاحظات (مثلاً: زيادة طحينة، السمك مقلي زيادة...)" class="w-full bg-oceanDark border border-white/10 rounded-xl p-4 text-sm font-bold text-white h-20 resize-none focus:border-coralAccent outline-none transition-all"></textarea>
+            </div>
+
+            <div class="p-6 border-t border-white/5 bg-oceanDark space-y-3">
+                <div id="delivery-row" class="flex justify-between items-center text-sm font-bold hidden">
+                    <span class="text-gray-500">رسوم التوصيل:</span>
+                    <span id="delivery-fee" class="text-coralAccent">+ 10 ريال</span>
+                </div>
+
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-gray-400 font-bold">إجمالي الحساب:</span>
+                    <span id="cart-total" class="text-3xl font-black text-coralAccent">0 ريال</span>
+                </div>
+                
+                <button onclick="sendOrder()" class="w-full bg-coralAccent text-oceanDark py-5 rounded-2xl font-black text-xl flex justify-center items-center gap-3 active:scale-95 transition-all">
+                    <i class="fa-brands fa-whatsapp text-3xl"></i> تأكيد وإرسال الطلب
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <footer class="bg-deepBlue border-t border-white/5 py-12 text-center mt-20">
+        <div class="text-2xl font-black text-coralAccent mb-2">مطعم أسماك أبو حمزة</div>
+        <p class="text-gray-500 text-sm">نحن نهتم بجودة كل سمكة نقدمها لكم</p>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUMBER = "966533255573";
+
+const menuData = [
+    // --- قسم البلطي (32 ر.س) ---
+    { id: 1, name: "بلطي زيت وليمون", category: "البلطي", price: 32, image: "https://i.ibb.co/ynQs0d02/image.jpg" },
+    { id: 2, name: "بلطي مشوي ردة", category: "البلطي", price: 32, image: "https://i.ibb.co/23V3V5NS/image.jpg" },
+    { id: 3, name: "بلطي سنجاري", category: "البلطي", price: 32, image: "https://i.ibb.co/gMzkQgBw/image.jpg" },
+    { id: 4, name: "بلطي مقلي", category: "البلطي", price: 32, image: "https://i.ibb.co/d4VfvPj3/image.jpg" },
+
+    // --- قسم البوري (45 ر.س) ---
+    { id: 5, name: "بوري زيت وليمون", category: "البوري", price: 45, image: "https://i.ibb.co/20Ww4gtQ/image.jpg" },
+    { id: 6, name: "بوري مشوي ردة", category: "البوري", price: 45, image: "https://i.ibb.co/C3tCXkjd/image.jpg" },
+    { id: 7, name: "بوري سنجاري", category: "البوري", price: 45, image: "https://i.ibb.co/wNk5gk7D/image.jpg" },
+    { id: 8, name: "بوري مقلي", category: "البوري", price: 45, image: "https://i.ibb.co/qY67GJy2/image.jpg" },
+    { id: 9, name: "بوري صينية وايت صوص", category: "البوري", price: 45, image: "https://i.ibb.co/NHDXNtD/image.jpg" },
+    { id: 10, name: "بوري صينية ريد صوص", category: "البوري", price: 45, image: "https://i.ibb.co/YBGPPqnm/image.jpg" },
+
+    // --- قسم الماكريل (40 ر.س) ---
+    { id: 11, name: "ماكريل زيت وليمون", category: "الماكريل", price: 40, image: "https://i.ibb.co/5hXL9rc7/jpg.webp" },
+    { id: 12, name: "ماكريل مشوي ردة", category: "الماكريل", price: 40, image: "https://i.ibb.co/GfDZrMqY/image.jpg" },
+    { id: 13, name: "ماكريل سنجاري", category: "الماكريل", price: 40, image: "https://i.ibb.co/N2nV14g0/image.jpg" },
+    { id: 14, name: "ماكريل مقلي", category: "الماكريل", price: 40, image: "https://i.ibb.co/chQJ6qzm/image.jpg" },
+
+    // --- قسم الدنيس ---
+    { id: 15, name: "دنيس زيت وليمون", category: "الدنيس", price: 55, image: "https://i.ibb.co/TQfh7Qx/image.jpg" },
+    { id: 16, name: "دنيس مشوي ردة", category: "الدنيس", price: 50, image: "https://i.ibb.co/zT0HQn4K/image.jpg" },
+    { id: 17, name: "دنيس سنجاري", category: "الدنيس", price: 55, image: "https://i.ibb.co/wh7Fvj3H/image.jpg" },
+    { id: 18, name: "دنيس مقلي", category: "الدنيس", price: 50, image: "https://i.ibb.co/yFXPjLxC/image.jpg" },
+    { id: 19, name: "دنيس صينية وايت صوص", category: "الدنيس", price: 55, image: "https://i.ibb.co/HL0ZzzTW/image.jpg" },
+    { id: 20, name: "دنيس صينية ريد صوص", category: "الدنيس", price: 55, image: "https://i.ibb.co/1tjSLnj2/image.jpg" },
+
+    // --- قسم القاروص ---
+    { id: 21, name: "قاروص مشوي ردة", category: "القاروص", price: 45, image: "https://i.ibb.co/6cVfXwbj/image.jpg" },
+    { id: 22, name: "قاروص زيت وليمون", category: "القاروص", price: 55, image: "https://i.ibb.co/ksKX3CRK/image.jpg" },
+    { id: 23, name: "قاروص سنجاري", category: "القاروص", price: 55, image: "https://i.ibb.co/xqq6gVhd/image.jpg" },
+    { id: 24, name: "قاروص مقلي", category: "القاروص", price: 55, image: "https://i.ibb.co/qM7mxQJp/image.jpg" },
+    { id: 25, name: "قاروص صينية وايت صوص", category: "القاروص", price: 55, image: "https://i.ibb.co/tpZyq8sC/image.jpg" },
+    { id: 26, name: "قاروص صينية ريد صوص", category: "القاروص", price: 55, image: "https://i.ibb.co/1GygKXP3/image.jpg" },
+
+    // --- قسم الحريد ---
+    { id: 27, name: "حريد مقلي", category: "الحريد/الشعور", price: 35, image: "https://i.ibb.co/rfsL4SqM/image.jpg" },
+    { id: 28, name: "حريد صينية بطاطس (1 كيلو)", category: "الحريد/الشعور", price: 40, image: "https://i.ibb.co/JF3fF646/image.jpg" },
+
+    // --- قسم الشعور ---
+    { id: 29, name: "شعور مقلي", category: "الحريد/الشعور", price: 40, image: "https://i.ibb.co/Qjkqgpcy/image.jpg" },
+    { id: 30, name: "شعور صينية بطاطس (1 كيلو)", category: "الحريد/الشعور", price: 45, image: "https://i.ibb.co/Qjkqgpcy/image.jpg" },
+
+    // --- قسم الهامور ---
+    { id: 31, name: "هامور صغير", category: "الهامور", price: 35, image: "https://i.ibb.co/Qjkqgpcy/image.jpg" },
+    { id: 32, name: "هامور كبير", category: "الهامور", price: 50, image: "https://i.ibb.co/Qjkqgpcy/image.jpg" },
+
+    // --- قسم الجمبري (60 ر.س) ---
+    { id: 33, name: "جمبري مشوي فاهيتا", category: "الجمبري", price: 60, image: "https://i.ibb.co/vCLjXxqS/image.jpg" },
+    { id: 34, name: "جمبري مشوي جريل", category: "الجمبري", price: 60, image: "https://i.ibb.co/pj5ZK448/image.jpg" },
+    { id: 35, name: "جمبري مقلي (رأس وذيل)", category: "الجمبري", price: 60, image: "https://i.ibb.co/GQVVZVyn/image.jpg" },
+    { id: 36, name: "جمبري مقلي لحم", category: "الجمبري", price: 60, image: "https://i.ibb.co/nMpf64Lm/image.jpg" },
+    { id: 37, name: "جمبري بترفلاي", category: "الجمبري", price: 60, image: "https://i.ibb.co/SLS2dgP/image.jpg" },
+
+    // --- قسم العروض ---
+    { id: 38, name: "وجبة حمزة", category: "العروض", price: 25, image: "https://i.ibb.co/8n6rgjYN/image.jpg" },
+    { id: 39, name: "وجبة آدم", category: "العروض", price: 20, image: "https://i.ibb.co/8n6rgjYN/image.jpg" },
+
+    // --- قسم الشوربة ---
+    { id: 40, name: "شوربة حمرا", category: "الشوربة", price: 5, image: "https://i.ibb.co/STSM4ft/image.jpg" },
+    { id: 41, name: "شوربة سي فود", category: "الشوربة", price: 15, image: "https://i.ibb.co/zh6cz08D/image.jpg" },
+
+    // --- قسم المشروبات ---
+    { id: 42, name: "كنزا", category: "المشروبات", price: 2, image: "https://i.ibb.co/kgVw0nCY/image.png" },
+    { id: 43, name: "مياه", category: "المشروبات", price: 1, image: "https://i.ibb.co/YFcXff3t/image.jpg" }
+];
+
+
+
+let cart = [];
+
+// دالة لتجميع البيانات حسب القسم
+function groupByCategory(data) {
+    return data.reduce((groups, item) => {
+        const category = item.category;
+        if (!groups[category]) groups[category] = [];
+        groups[category].push(item);
+        return groups;
+    }, {});
+}
+
+function renderMenu() {
+    const container = document.getElementById('menu-sections');
+    const groupedData = groupByCategory(menuData);
+    
+    // الخريطة لتحويل اسم القسم لـ ID المقابل في الـ Category Slider
+    const categoryIds = {
+        "البلطي": "sec-balti",
+        "البوري": "sec-bouri",
+        "الماكريل": "sec-mak",
+        "الدنيس": "sec-denis",
+        "القاروص": "sec-qarous",
+        "الحريد/الشعور": "sec-hareed",
+        "الجمبري": "sec-shrimp",
+        "العروض": "sec-offers",
+        "الشوربة": "sec-soup",
+        "المشروبات": "sec-drinks"
+    };
+
+    container.innerHTML = Object.keys(groupedData).map(category => `
+        <section id="${categoryIds[category] || category}" class="scroll-mt-40">
+            <h3 class="text-3xl font-black mb-8 border-r-4 border-coralAccent pr-4 flex items-center gap-2">
+                ${category}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                ${groupedData[category].map(item => `
+                   <div class="item-card flex flex-col group">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition duration-540 group-hover:scale-110">
+                            <div class="absolute top-3 left-3 bg-coralAccent text-oceanDark font-black px-3 py-1 rounded-full text-sm shadow-lg">
+                                ${item.price} ر.س
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col justify-between flex-1">
+                            <h4 class="font-bold text-lg mb-4 h-12 overflow-hidden leading-tight">${item.name}</h4>
+                            <button onclick="add('${item.name}', ${item.price})" class="add-btn w-full bg-coralAccent text-oceanDark py-2.5 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-teal-300 transition-all active:scale-95">
+                                <i class="fa-solid fa-plus-circle"></i> أضف للطلب
+                            </button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </section>
+    `).join('');
+}
+
+function showHours() {
+    Swal.fire({
+        title: '<span class="text-coralAccent">ساعات العمل</span>',
+        html: `<div class="text-right space-y-2 text-white p-2">
+                <p class="flex justify-between"><span>يومياً:</span> <span>1:00 م - 12:00 ص</span></p>
+                <p class="text-sm text-gray-400 text-center mt-4 italic font-bold">نستقبلكم بكل حب</p>
+               </div>`,
+        background: '#002855',
+        confirmButtonText: 'فهمت',
+        confirmButtonColor: '#94d2bd'
+    });
+}
+
+function enterApp(mode) {
+    const lp = document.getElementById('landing-page');
+    lp.classList.add('landing-hidden');
+    // التأكد من الرجوع لأول الصفحة عند الدخول
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+function add(n, p) {
+    const item = cart.find(i => i.n === n);
+    item ? item.q++ : cart.push({n, p, q: 1});
+    updateUI();
+    
+    Swal.fire({
+        title: 'تمت الإضافة',
+        text: n,
+        icon: 'success',
+        toast: true,
+        position: 'bottom-right',
+        timer: 1500,
+        showConfirmButton: false,
+        background: '#001219',
+        color: '#94d2bd'
+    });
+}
+
+// تعريف متغير نوع الطلب في البداية
+let orderType = 'pickup'; 
+
+function updateUI() {
+    const count = cart.reduce((a, b) => a + b.q, 0);
+    let totalItems = cart.reduce((a, b) => a + (b.p * b.q), 0);
+    
+    const deliveryFee = orderType === 'delivery' ? 10 : 0;
+    const finalTotal = totalItems + deliveryFee;
+
+    const cartCountEl = document.getElementById('cart-count');
+    if (cartCountEl) {
+        cartCountEl.innerText = count;
+        cartCountEl.classList.toggle('hidden', count === 0);
+    }
+    
+    const deliveryRow = document.getElementById('delivery-row');
+    const container = document.getElementById('cart-items');
+
+    if (container) {
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="text-center py-20 text-gray-600 font-bold">السلة فارغة</div>';
+            if (deliveryRow) deliveryRow.classList.add('hidden');
+        } else {
+            container.innerHTML = cart.map((item, idx) => `
+                <div class="bg-deepBlue/40 border border-white/5 p-4 rounded-2xl flex justify-between items-center">
+                    <div class="flex-1 ml-4">
+                        <h5 class="font-bold text-sm text-white">${item.n}</h5>
+                        <p class="text-coralAccent font-black">${item.p} ر.س</p>
+                    </div>
+                    <div class="flex items-center gap-3 bg-oceanDark rounded-xl p-1 border border-white/10">
+                        <button onclick="change(${idx}, -1)" class="w-8 h-8 flex items-center justify-center hover:text-red-500"><i class="fa-solid fa-minus"></i></button>
+                        <span class="font-black w-4 text-center text-sm">${item.q}</span>
+                        <button onclick="change(${idx}, 1)" class="w-8 h-8 flex items-center justify-center hover:text-coralAccent"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            `).join('');
+
+            if (deliveryRow) {
+                if (orderType === 'delivery') {
+                    deliveryRow.classList.remove('hidden');
+                    document.getElementById('delivery-fee').innerText = "+ 10 ريال";
+                } else {
+                    deliveryRow.classList.add('hidden');
+                }
+            }
+        }
+    }
+    
+    const totalEl = document.getElementById('cart-total');
+    if (totalEl) totalEl.innerText = finalTotal + " ريال";
+}
+
+// دالة تغيير الكمية (كانت ناقصة في كودك)
+function change(index, delta) {
+    cart[index].q += delta;
+    if (cart[index].q <= 0) cart.splice(index, 1);
+    updateUI();
+}
+
+// دالة تحديد نوع الطلب
+function setOrderType(type) {
+    orderType = type;
+    updateUI();
+    
+    const isDelivery = type === 'delivery';
+    document.getElementById('type-delivery').className = isDelivery ? 
+        "flex-1 py-3 rounded-xl text-xs font-black border-2 border-coralAccent bg-coralAccent text-oceanDark" : 
+        "flex-1 py-3 rounded-xl text-xs font-black border-2 border-white/10 text-white/50";
+        
+    document.getElementById('type-pickup').className = !isDelivery ? 
+        "flex-1 py-3 rounded-xl text-xs font-black border-2 border-coralAccent bg-coralAccent text-oceanDark" : 
+        "flex-1 py-3 rounded-xl text-xs font-black border-2 border-white/10 text-white/50";
+}
+
+function toggleCart() {
+    const modal = document.getElementById('cart-modal');
+    modal.classList.toggle('hidden');
+}
+
+function sendOrder() {
+    if(cart.length === 0) return;
+    const name = document.getElementById('customer-name').value.trim();
+    if(!name) {
+        Swal.fire({ text: 'يرجى إدخال اسمك الكريم', icon: 'error', background: '#002855', color: '#fff' });
+        return;
+    }
+
+    const notes = document.getElementById('order-notes').value.trim();
+    const itemsTotal = cart.reduce((a, b) => a + (b.p * b.q), 0);
+    const deliveryFee = orderType === 'delivery' ? 10 : 0;
+    const finalTotal = itemsTotal + deliveryFee;
+    const typeLabel = orderType === 'delivery' ? '🚗 توصيل للمنزل' : '🥡 استلام من الفرع';
+    
+    let msg = "*🐟 طلب جديد من أسماك أبو حمزة*\n";
+    msg += "━━━━━━━━━━━━━━━━━━\n";
+    msg += `👤 *العميل:* ${name}\n`;
+    msg += `📍 *نوع الطلب:* ${typeLabel}\n`;
+    msg += "━━━━━━━━━━━━━━━━━━\n\n";
+    
+    cart.forEach(i => { msg += `• ${i.n} [ ${i.q} ] = ${i.p * i.q} ريال\n`; });
+    
+    msg += "\n━━━━━━━━━━━━━━━━━━\n";
+    if(deliveryFee > 0) msg += `🚚 *رسوم التوصيل:* ${deliveryFee} ريال\n`;
+    msg += `📝 *ملاحظات:* ${notes || 'لا يوجد'}\n`;
+    msg += `💰 *الإجمالي النهائي:* ${finalTotal} ريال`;
+    
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+window.onload = renderMenu;
+
+
+
+function sendOrder() {
+    if(cart.length === 0) return;
+    const name = document.getElementById('customer-name').value.trim();
+    if(!name) {
+        Swal.fire({ text: 'يرجى إدخال اسمك الكريم', icon: 'error', background: '#002855', color: '#fff' });
+        return;
+    }
+
+    const notes = document.getElementById('order-notes').value.trim();
+    const itemsTotal = cart.reduce((a, b) => a + (b.p * b.q), 0);
+    const deliveryFee = orderType === 'delivery' ? 10 : 0;
+    const finalTotal = itemsTotal + deliveryFee;
+    const typeLabel = orderType === 'delivery' ? '🚗 توصيل للمنزل' : '🥡 استلام من الفرع';
+    
+    let msg = "*🐟 طلب جديد من أسماك أبو حمزة*\n";
+    msg += "━━━━━━━━━━━━━━━━━━\n";
+    msg += `👤 *العميل:* ${name}\n`;
+    msg += `📍 *نوع الطلب:* ${typeLabel}\n`;
+    msg += "━━━━━━━━━━━━━━━━━━\n\n";
+    
+    cart.forEach(i => { msg += `• ${i.n} [ ${i.q} ] = ${i.p * i.q} ريال\n`; });
+    
+    msg += "\n━━━━━━━━━━━━━━━━━━\n";
+    if(deliveryFee > 0) msg += `🚚 *رسوم التوصيل:* ${deliveryFee} ريال\n`;
+    msg += `📝 *ملاحظات:* ${notes || 'لا يوجد'}\n`;
+    msg += `💰 *الإجمالي النهائي:* ${finalTotal} ريال`;
+    
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+
+window.onload = renderMenu;
+
+    </script>
+</body>
+</html>
+
