@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <meta name="google-site-verification" content="wL0e0sTjXxYcRzLKuMJezBS9wq9u25GCDl8N91eJJy4" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أسماك أبو حمزة | طعم البحر الأصلي</title>
@@ -34,17 +35,10 @@
     body:has(#landing-page:not(.landing-hidden)) { overflow: hidden; }
 
     /* تحسين صفحة الهبوط */
-    #landing-page {
+    /* التنسيق المعدل لصفحة الهبوط */
+#landing-page {
     position: fixed; 
     inset: 0; 
-    /* الحل الأول: إضافة background-attachment: fixed ومنع التكرار */
-    background: linear-gradient(rgba(0,18,25,0.6), rgba(0,18,25,0.8)), 
-    url('https://res.cloudinary.com/do0u3he16/image/upload/v1777516309/c55008754b64ab73f6d75bb673d9df35_gdlfgo.jpg');
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* هذا يمنع الصورة من التحرك مع السكرول */
-    
     z-index: 9999; 
     display: flex; 
     flex-direction: column; 
@@ -52,15 +46,27 @@
     justify-content: flex-start; 
     overflow-y: auto;
     padding: 3rem 1.5rem; 
-    
-    /* لضمان ثبات الأبعاد عند ظهور الكيبورد أو تغير حجم المتصفح */
     height: 100%;
     width: 100%;
-
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: saturate(1.4) contrast(1.1) blur(6px); 
-    -webkit-backdrop-filter: saturate(1.4) contrast(1.1) blur(6px);
 }
+
+/* العنصر المسؤول عن تثبيت الصورة ومنع اهتزازها */
+#landing-page::before {
+    content: "";
+    position: fixed; /* تثبيت مطلق في الشاشة */
+    inset: 0;
+    background: linear-gradient(rgba(0,18,25,0.6), rgba(0,18,25,0.8)), 
+                url('https://res.cloudinary.com/do0u3he16/image/upload/v1777516309/c55008754b64ab73f6d75bb673d9df35_gdlfgo.jpg');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* لجعلها خلف المحتوى */
+    /* تحسين الأداء ومنع التأثيرات المفاجئة */
+    will-change: transform;
+    transform: translateZ(0); 
+}
+
 
 
 
@@ -130,10 +136,28 @@
                 <span>مواعيد العمل: <span class="text-xs font-light opacity-70">1م - 12ص</span></span>
             </button>
 
-            <a href="http://googleusercontent.com/maps.google.com/6" target="_blank" class="landing-btn bg-white/5 border border-white/20 text-white mb-10">
+            <a href="https://maps.app.goo.gl/jMZYxXFjFkWK9iga7" target="_blank" class="landing-btn bg-white/5 border border-white/20 text-white mb-10">
                 <i class="fa-solid fa-location-dot text-red-500"></i> موقعنا على الخريطة
             </a>
         </div>
+        
+  
+        <footer class="mt-auto pt-12 pb-8 w-full">
+    <div class="flex flex-row items-center justify-center gap-5 py-3 px-7 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 w-fit mx-auto opacity-75 hover:opacity-100 transition-all duration-700 shadow-2xl">
+        <p class="text-[10px] md:text-[12px] text-gray-400 font-medium tracking-wide">جميع الحقوق محفوظة © 2024</p>
+        
+        <span class="w-[1px] h-4 bg-white/20"></span>
+        
+        <a href="https://wa.me/966550340929" target="_blank" class="flex items-center gap-2 group">
+            <span class="text-[10px] md:text-[12px] text-gray-500 font-light">تصميم:</span>
+            <span class="text-[11px] md:text-[13px] font-black text-coralAccent group-hover:text-white transition-colors duration-300 tracking-tight">
+                Abdulrahman Ayman
+            </span>
+        </a>
+    </div>
+</footer>
+
+
     </div>
 </div>
 
